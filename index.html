@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empower African Girls | Hope & Future</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .hero-gradient {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+        }
+        .impact-card {
+            transition: transform 0.3s ease;
+        }
+        .impact-card:hover {
+            transform: translateY(-5px);
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const DonationSite = () => {
+            const [amount, setAmount] = React.useState('50');
+            const [customAmount, setCustomAmount] = React.useState('');
+            const [isVideoPlaying, setIsVideoPlaying] = React.useState(false);
+
+            const handlePayPalDonation = (selectedAmount) => {
+                const finalAmount = selectedAmount === 'custom' ? customAmount : amount;
+                const paypalEmail = 'edwinenyakundi@gmail.com';
+                const paypalURL = `https://www.paypal.com/donate/?business=${encodeURIComponent(paypalEmail)}&amount=${finalAmount}&currency_code=USD`;
+                window.open(paypalURL, '_blank');
+            };
+
+            const ImpactCard = ({ title, value, description }) => (
+                <div className="impact-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl">
+                    <h3 className="text-3xl font-bold text-purple-600 mb-2">{value}</h3>
+                    <h4 className="text-xl font-semibold text-gray-800 mb-2">{title}</h4>
+                    <p className="text-gray-600">{description}</p>
+                </div>
+            );
+
+            const StoryCard = ({ name, age, story, country }) => (
+                <div className="bg-white p-6 rounded-xl shadow-lg mb-6">
+                    <div className="flex items-center mb-4">
+                        <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                            <span className="text-purple-600 text-xl font-bold">{name[0]}</span>
+                        </div>
+                        <div className="ml-4">
+                            <h3 className="text-xl font-bold text-gray-800">{name}</h3>
+                            <p className="text-gray-600">{age} years old • {country}</p>
+                        </div>
+                    </div>
+                    <p className="text-gray-700 italic">"{story}"</p>
+                </div>
+            );
+
+            return (
+                <div className="min-h-screen bg-gray-50">
+                    {/* Hero Section */}
+                    <div className="hero-gradient text-white py-24 px-4">
+                        <div className="max-w-4xl mx-auto text-center fade-in-up">
+                            <h1 className="text-5xl md:text-6xl font-bold mb-6">Empowering Girls Across Africa</h1>
+                            <p className="text-xl md:text-2xl mb-8">Every girl deserves education, safety, and the chance to shape her future.</p>
+                            <div className="text-lg md:text-xl opacity-90 mb-12">
+                                129 million girls worldwide are out of school, with the majority in sub-Saharan Africa.
+                                Your support can change this reality.
+                            </div>
+                            <button 
+                                onClick={() => document.getElementById('donate').scrollIntoView({ behavior: 'smooth' })}
+                                className="bg-purple-600 text-white px-8 py-4 rounded-full text-xl font-semibold hover:bg-purple-700 transition-all"
+                            >
+                                Make a Difference Today
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Impact Section */}
+                    <div className="max-w-6xl mx-auto px-4 py-16">
+                        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Our Impact</h2>
+                        <div className="grid md:grid-cols-3 gap-8 mb-16">
+                            <ImpactCard 
+                                title="Girls in School"
+                                value="5,000+"
+                                description="Girls supported with education, supplies, and uniforms across 12 African countries"
+                            />
+                            <ImpactCard 
+                                title="Safe Spaces Created"
+                                value="250"
+                                description="Community centers and safe spaces established for learning and support"
+                            />
+                            <ImpactCard 
+                                title="Success Rate"
+                                value="94%"
+                                description="Of supported girls complete their education and pursue further opportunities"
+                            />
+                        </div>
+
+                        {/* Stories Section */}
+                        <div className="mb-16">
+                            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Real Stories, Real Impact</h2>
+                            <div className="grid md:grid-cols-2 gap-8">
+                                <StoryCard 
+                                    name="Grace"
+                                    age="16"
+                                    country="Kenya"
+                                    story="Thanks to the scholarship program, I can continue my education. My dream of becoming a doctor is now possible. This support isn't just helping me – it's helping my entire community."
+                                />
+                                <StoryCard 
+                                    name="Amara"
+                                    age="15"
+                                    country="Nigeria"
+                                    story="The safe space program gave me confidence and showed me that I can be more than what society expects. Now I'm top of my class in mathematics and inspiring other girls in my village."
+                                />
+                            </div>
+                        </div>
+
+                        {/* Donation Section */}
+                        <div id="donate" className="bg-white rounded-xl shadow-xl p-8 mb-16">
+                            <h2 className="text-3xl font-bold text-center mb-8">Transform a Girl's Life Today</h2>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                {['25', '50', '100', '200'].map((preset) => (
+                                    <button
+                                        key={preset}
+                                        onClick={() => {
+                                            setAmount(preset);
+                                            setCustomAmount('');
+                                        }}
+                                        className={`py-3 px-6 rounded-lg text-lg font-semibold transition-all ${
+                                            amount === preset 
+                                            ? 'bg-purple-600 text-white' 
+                                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                        }`}
+                                    >
+                                        ${preset}
+                                    </button>
+                                ))}
+                            </div>
+                            <div className="mb-6">
+                                <input
+                                    type="number"
+                                    placeholder="Enter custom amount"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                                    value={customAmount}
+                                    onChange={(e) => {
+                                        setCustomAmount(e.target.value);
+                                        setAmount('custom');
+                                    }}
+                                />
+                            </div>
+                            <div className="text-center mb-6">
+                                <p className="text-gray-600 mb-4">Your donation can provide:</p>
+                                <div className="grid md:grid-cols-3 gap-4 text-sm">
+                                    <div className="bg-purple-50 p-3 rounded">
+                                        <span className="font-bold">$25</span> = School supplies for one term
+                                    </div>
+                                    <div className="bg-purple-50 p-3 rounded">
+                                        <span className="font-bold">$50</span> = One month of safe transport
+                                    </div>
+                                    <div className="bg-purple-50 p-3 rounded">
+                                        <span className="font-bold">$100</span> = Three months of tuition
+                                    </div>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => handlePayPalDonation(amount)}
+                                className="w-full bg-purple-600 text-white py-4 px-6 rounded-lg text-lg font-semibold hover:bg-purple-700 transition-all"
+                            >
+                                Donate via PayPal
+                            </button>
+                        </div>
+
+                        {/* Why It Matters */}
+                        <div className="text-center mb-16">
+                            <h2 className="text-3xl font-bold mb-6">Why Your Support Matters</h2>
+                            <div className="max-w-3xl mx-auto">
+                                <p className="text-gray-700 mb-4">
+                                    In sub-Saharan Africa, 32 million girls are out of school due to poverty, cultural barriers, 
+                                    and lack of resources. Each donation helps break these barriers and creates lasting change.
+                                </p>
+                                <ul className="text-left max-w-2xl mx-auto">
+                                    <li className="flex items-center mb-3">
+                                        <span className="text-purple-600 mr-2">✓</span>
+                                        Educated girls earn up to 25% more per year of schooling
+                                    </li>
+                                    <li className="flex items-center mb-3">
+                                        <span className="text-purple-600 mr-2">✓</span>
+                                        Each year of education reduces early marriage risk by 5%
+                                    </li>
+                                    <li className="flex items-center mb-3">
+                                        <span className="text-purple-600 mr-2">✓</span>
+                                        Educated mothers are twice as likely to send their children to school
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Footer */}
+                    <footer className="bg-gray-900 text-white py-12">
+                        <div className="max-w-6xl mx-auto px-4">
+                            <div className="grid md:grid-cols-3 gap-8 mb-8">
+                                <div>
+                                    <h3 className="text-xl font-bold mb-4">Our Mission</h3>
+                                    <p className="text-gray-400">
+                                        Empowering African girls through education, creating safe spaces, 
+                                        and building sustainable pathways to brighter futures.
+                                    </p>
+                                </div>
+                                <div>
+                                    <h3 className="text-xl font-bold mb-4">Contact</h3>
+                                    <p className="text-gray-400">
+                                        Email: edwinenyakundi@gmail.com<br/>
+                                        Your support transforms lives!
+                                    </p>
+                                </div>
+                                <div>
+                                    <h3 className="text-xl font-bold mb-4">Transparency</h3>
+                                    <p className="text-gray-400">
+                                        95% of donations go directly to programs supporting girls' education and safety.
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
+                                <p>&copy; 2024 Empowering African Girls Initiative. All rights reserved.</p>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<DonationSite />, document.getElementById('root'));
+    </script>
+</body>
+</html>
