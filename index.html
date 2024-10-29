@@ -45,7 +45,7 @@
 
             const handlePayPalDonation = (selectedAmount) => {
                 const finalAmount = selectedAmount === 'custom' ? customAmount : amount;
-                const paypalEmail = 'edwinemokaya71@gmail.com';
+                const paypalEmail = 'navyzeal2@gmail.com';
                 const paypalURL = `https://www.paypal.com/donate/?business=${encodeURIComponent(paypalEmail)}&amount=${finalAmount}&currency_code=USD`;
                 window.open(paypalURL, '_blank');
             };
